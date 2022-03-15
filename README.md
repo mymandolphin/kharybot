@@ -25,7 +25,7 @@ Insert the appropriate information into the config file.
 
     "token": "Token goes here.",
     "log_channel_id": 1234567890,
-    "moderator_role_id": 0987654321
+    "moderator_role_id": 9876543210
 
 }
 ```
