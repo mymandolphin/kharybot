@@ -1,2 +1,3 @@
-# kharybot
-khary bot
+# Khary Bot
+
+this is weird.
