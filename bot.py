@@ -15,6 +15,19 @@ import asyncio
 import json
 import os
 
+# Config file
+data = dict()
+
+try:
+
+    with open("config.json", "r") as config:
+
+        data = json.load(config)
+
+except FileNotFoundError:
+
+    raise Exception("Could not run config.json as it does not exist. Run setup.py to generate a config file, and populate file.")
+
 
 # Initialisation
 bot = commands.Bot(
@@ -22,7 +35,8 @@ bot = commands.Bot(
     command_prefix = "+",
     case_insensitive = True,
     help_command = None,
-    strip_after_prefix = True
+    strip_after_prefix = True,
+    intents = discord.Intents.all()
 
 )
 
@@ -66,19 +80,16 @@ async def on_ready():
 
     print("Logged in successfully.")
     
+@bot.command()
+@commands.is_owner()
+async def refresh_commands(ctx):
 
-# Config file
-data = dict()
+    m = await ctx.reply("Refreshing slash commands... (This might take a minute)")
 
-try:
+    await bot.register_commands()
 
-    with open("config.json", "r") as config:
+    await m.edit("Slash commands refreshed.")
 
-        data = json.load(config)
-
-except FileNotFoundError:
-
-    raise Exception("Could not run config.json as it does not exist. Run setup.py to generate a config file, and populate file.")
 
 bot.run(data['token'])
 
